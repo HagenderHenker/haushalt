@@ -1,6 +1,9 @@
-import data_hhsatzung as hhdr
+import data_01_allgemein as allgemein
+import data_02_hhsatzung as hhdaten
+
 
 def hhsatzung():
+
     conhhsatzung = {
         
     }
