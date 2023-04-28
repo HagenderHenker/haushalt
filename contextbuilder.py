@@ -1,15 +1,32 @@
 import data_01_allgemein as allgemein
 import data_02_hhsatzung as hhdaten
+import pathlib
 
 
-def hhsatzung():
+def hhsatzung(gde, hhj, xlsgrunddaten, xlsbewegung):
+    #dictgde = allgemein.gdegrunddaten(xlsfilegrunddaten=xlsgrunddaten, gde=gde)
+    dictgde = allgemein.gdegrunddaten(xlsfilegrunddaten=xlsgrunddaten, gde=60)
+    dictbew = hhdaten.hhsatzungbewegung(gde = gde, hhj = hhj, hhbewfile=xlsbewegung)
+    dicthhgd = hhdaten.hhsatzunggrunddatenhh(xlsfile = xlsgrunddaten, gdenr=gde, hhj=hhj)
+    #print(f"dictgde: {dictgde}")
+    #print(f"dictbew: {dictbew}")
+    #print(f"dicthhgd: {dicthhgd}")    
+    conhhsatzung = dictgde | dictbew | dicthhgd
+    ekvvj = hhdaten.hhsatzungekvvj(gdenr=gde, hhj=hhj, xlsfile=xlsgrunddaten)/100
+    ekvj = ekvvj + dictbew["saldo_vj"]
+    ekhhj = ekvj + dictbew["erg_saldo"]
+    conhhsatzung["ek_vvj"] = ekvvj
+    conhhsatzung["ek_vj"] = ekvj
+    conhhsatzung["ek_hhj"] = ekhhj
 
-    conhhsatzung = {
-        
-    }
+    return conhhsatzung
 
-    pass
+def hh_vorb_allg():
 
+    conhh_vorb_allg = {}
+    return conhh_vorb_allg
+
+"""
 def freiefinanzspitze():
     confreiefinanzspitze= {}
     pass
@@ -18,9 +35,7 @@ def schuldenübersicht():
     conschuldenübersicht ={}
     pass
 
-def hh_vorb_allg():
-    conhh_vorb_allg = {}
-    pass
+
 
 def hh_vorb_vvj():
     conhh_vorb_vvj = {}
@@ -59,4 +74,10 @@ def vorbericht_Invest():
 def kredit_und_bestand():
     conKredit_und_bestand = {}
     pass
+"""
 
+if __name__ == "__main__":
+    #print test hhsatzungcontext
+    print(hhsatzung(gde=60 , hhj=2023, xlsgrunddaten=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"),xlsbewegung=str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx") ))
+
+    #print test vorbericht-allgemein

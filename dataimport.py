@@ -6,7 +6,7 @@ def hhdata_excelimport(xlsxfile):
                    # decimal = ",",
                    # encoding = "latin1",
                    #thousands = ".",
-                   names = ["hhs", "produkt", "mn", "sk", "bez", "th", "dk", "anshhj", "sollhhj", "ansvj", "sollvj", "rgergvvj", "rgergvj", "rgakt", "plan1", "plan2", "plan3", "ve"],
+                   names = ["hhs", "produkt", "mn", "sk", "bez", "th", "dk", "anshhj", "sollhhj", "ansvj", "sollvj", "planvvj", "rgergvvj", "rgergvj", "rgakt", "plan1", "plan2", "plan3", "ve"],
                    dtype= {"hhs": str,
                            "produkt": str,
                            "bez": str,
@@ -21,7 +21,7 @@ def hhdata_clipboardimport():
                    # decimal = ",",
                    # encoding = "latin1",
                    #thousands = ".",
-                   names = ["hhs", "produkt", "mn", "sk", "bez", "th", "dk", "anshhj", "sollhhj", "ansvj", "sollvj", "rgergvvj", "rgergvj", "rgakt", "plan1", "plan2", "plan3", "ve"],
+                   names = ["hhs", "produkt", "mn", "sk", "bez", "th", "dk", "anshhj", "sollhhj", "ansvj", "sollvj", "planvvj", "rgergvvj", "rgergvj", "rgakt", "plan1", "plan2", "plan3", "ve"],
                    dtype= {"hhs": str,
                            "produkt": str,
                            "bez": str,
@@ -37,6 +37,23 @@ def mn_excelimport(xlsxfile):
 def prod_excelimport(xlsxfile):
     df = pd.read_excel(xlsxfile, 2)
     return df
+
+def readgrunddatengde(xlsfile, gdenr):
+    df = pd.read_excel(xlsfile, sheet_name="gde",)
+    dfgde = df.loc[(df["gdenr"] == gdenr)]
+    return dfgde
+
+def readgrunddatenhh(xlsfile, gdenr, hhj):
+    df = pd.read_excel(xlsfile, sheet_name="hhdaten",)
+    dfhh = df.loc[(df["gdenr"] == gdenr) & (df["hhj"] == hhj)]
+    return dfhh
+
+def hhsatzungekentwicklung(xlsfile, gdenr, hhj):
+       df = pd.read_excel(xlsfile, sheet_name="JAWerte")
+       dfhh = df.loc[(df["gdenr"] == gdenr) & (df["hhj"] == hhj)]
+       return dfhh
+
+
 
 
 
