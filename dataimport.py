@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import pathlib
+from datetime import date
 
 def hhdata_excelimport(xlsxfile):
     df = pd.read_excel(xlsxfile, 0, 
@@ -53,7 +55,15 @@ def hhsatzungekentwicklung(xlsfile, gdenr, hhj):
        dfhh = df.loc[(df["gdenr"] == gdenr) & (df["hhj"] == hhj)]
        return dfhh
 
+def readewstatistik_wohn(xlsfile, gdenr, jahr):
+    df = pd.read_excel(xlsfile, sheet_name="ew_wohn")
+       
+    dfewdata = df.loc[(df["gdenr"] == gdenr) & (df["datum"] <= np.datetime64(date(year=jahr, month = 6, day = 30))) &  (df["datum"] >= np.datetime64(date(year=jahr-10, month=6, day=30)))]
+    
+    return dfewdata
 
+#df = readewstatistik_wohn(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, jahr=2022)
+#print(df)
 
 
 
