@@ -4,19 +4,36 @@ import contextbuilder
 import pathlib
 
 def builddocx(template, context, filename):
+
+    def ec(number):
+        eurofied = "{:,.2f}".format(number).replace(",", "x").replace(".", ",").replace("x", ".")
+        return eurofied
+
+    def ecp(number):
+        euro = "{:,}".format(number).replace(",", ".")
+        return euro
+
+
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath="."),
+                             trim_blocks=True,
+                             lstrip_blocks=True)
+    env.filters["ec"] = ec
+    #env.filters["ecp"] = ec
+    env.filters["ecp"] = ecp
+
+
     tpl = docxtpl.DocxTemplate(template)
-
     tpl.render(context)
-    tpl.save(filename+'.docx')
+    tpl.save(f"{filename}.docx")
 
-
+"""
 # Haushaltssatzung
 
 hhsatzung_tpl = pathlib.Path()
 hhsatzung_context = contextbuilder.hhsatzung()
 
 builddocx(hhsatzung_tpl, hhsatzung_context, "01_HH-Satzung" )
-
+"""
 """
 # Vorbericht Allgemeines
 
