@@ -10,6 +10,11 @@ grunddaten = str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx")
 bewegungsdaten = str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx")
 
 
+
+
+hhstpl = str(pathlib.Path.cwd() / "wordtemplates/hhs.docx")
+
+
 if __name__ == "__main__":
 
     # create the dataframes for all further purposes from dataimport
@@ -26,7 +31,11 @@ if __name__ == "__main__":
     # build "Haushaltssatzung"
 
     contexthhsatzung = ctx.hhsatzung(gde = gde, hhj = hhj, xlsgrunddaten = grunddaten, xlsbewegung = bewegungsdaten)
+    print("Data for 'Haushaltssatzung' is compiled")
     print(contexthhsatzung)
+
+    docbuilder.builddocx(template=hhstpl, context=contexthhsatzung, filename=f"{gde}-{hhj}-00-Haushaltssatzung", gde=gde, hhj=hhj)
+    print("Haushaltssatzung erstellt in Ordner")
 
 
 

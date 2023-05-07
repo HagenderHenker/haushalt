@@ -3,7 +3,9 @@ import jinja2
 import contextbuilder
 import pathlib
 
-def builddocx(template, context, filename):
+
+
+def builddocx(template, context, filename, gde, hhj):
 
     def ec(number):
         eurofied = "{:,.2f}".format(number).replace(",", "x").replace(".", ",").replace("x", ".")
@@ -14,17 +16,27 @@ def builddocx(template, context, filename):
         return euro
 
 
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath="."),
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath="."), 
                              trim_blocks=True,
                              lstrip_blocks=True)
     env.filters["ec"] = ec
     #env.filters["ecp"] = ec
     env.filters["ecp"] = ecp
 
+    gdepfad = pathlib.Path.cwd() /f"Ausgabe/{gde}"
+    hhpfad = pathlib.Path.cwd() /f"Ausgabe/{gde}/{hhj}"
+
 
     tpl = docxtpl.DocxTemplate(template)
-    tpl.render(context)
-    tpl.save(f"{filename}.docx")
+    tpl.render(context, env)
+
+    if not pathlib.Path(gdepfad).exists():
+        pathlib.Path.mkdir(gdepfad)
+    
+    if not pathlib.Path(hhpfad).exists:
+        pathlib.Path.mkdir(hhpfad)
+
+    tpl.save(pathlib.Path(f"{hhpfad}/{filename}.docx"))
 
 """
 # Haushaltssatzung
