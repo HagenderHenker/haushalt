@@ -40,6 +40,16 @@ def prod_excelimport(xlsxfile):
     df = pd.read_excel(xlsxfile, 2)
     return df
 
+def erl_excelimport(xlsxfile):
+    df = pd.read_excel(xlsxfile, 3, 
+                       names=["hh", "produkt", "mn", "sk", "erlNr", "erlTyp", "interneErl", "erl", "nicht uebertragbar"],
+                       dtype ={"hh" : str,
+                               "produkt" : str,
+                                #"sk" : int,
+                                "erl" : str})
+
+    return df
+
 def readgrunddatengde(xlsfile, gdenr):
     df = pd.read_excel(xlsfile, sheet_name="gde",)
     dfgde = df.loc[(df["gdenr"] == gdenr)]

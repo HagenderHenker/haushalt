@@ -111,6 +111,6 @@ def hhsatzungbewegung(gde, hhj, hhbewfile):
 
 
 
-if __name__ == "__main__":
-        hhsatzungekvvj(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, hhj=2023)
+#if __name__ == "__main__":
+       # hhsatzungekvvj(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, hhj=2023)
         # print(hhsatzungbewegung(gde=60, hhj=2023, hhbewfile= str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx")))
