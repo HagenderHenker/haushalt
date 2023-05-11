@@ -56,7 +56,19 @@ def readgrunddatengde(xlsfile, gdenr):
     return dfgde
 
 def readgrunddatenhh(xlsfile, gdenr, hhj):
-    df = pd.read_excel(xlsfile, sheet_name="hhdaten",)
+    df = pd.read_excel(xlsfile, 
+                       sheet_name="hhdaten",
+                       dtype = {"hebesatz_grsta" : int,
+                                "hebesatz_grstb" : int,
+                                "hebesatz_gewst" : int,
+                                "hust_1" : int,
+                                "hust_2" : int,    
+                                "hust_3" : int,
+                                "kred_zinslos" : int,
+                                "ve_ohne_kredit" : int,
+                                "vg" : bool}
+                       )
+    
     dfhh = df.loc[(df["gdenr"] == gdenr) & (df["hhj"] == hhj)]
     return dfhh
 
@@ -74,6 +86,10 @@ def readewstatistik_wohn(xlsfile, gdenr, jahr):
 
 #df = readewstatistik_wohn(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, jahr=2022)
 #print(df)
+df = (readgrunddatenhh(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, hhj=2023))
+print(df)
+print(df.dtypes)
+
 
 
 

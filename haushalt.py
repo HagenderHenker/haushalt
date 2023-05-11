@@ -32,11 +32,16 @@ if __name__ == "__main__":
 
     contexthhsatzung = ctx.hhsatzung(gde = gde, hhj = hhj, xlsgrunddaten = grunddaten, xlsbewegung = bewegungsdaten)
     print("Data for 'Haushaltssatzung' is compiled")
-    print(contexthhsatzung)
+    for k in contexthhsatzung:
+        print(f"{k} - {contexthhsatzung[k]} -type: {type(contexthhsatzung[k])}" )
+    
+    """
+    #test
+    cont = {}
+    cont["gde_bez"] = contexthhsatzung["gde_bez"]
+    cont["hhj"] = contexthhsatzung["hhj"]
+    print(cont)
+    """
 
-    docbuilder.builddocx(template=hhstpl, context=contexthhsatzung, filename=f"{gde}-{hhj}-00-Haushaltssatzung", gde=gde, hhj=hhj)
+    docbuilder.builddocx(template=hhstpl, context=contexthhsatzung, filename="00-Haushaltssatzung", gde=gde, hhj=hhj)
     print("Haushaltssatzung erstellt in Ordner")
-
-
-
-
