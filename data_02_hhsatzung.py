@@ -19,7 +19,7 @@ def hhsatzunggrunddatenhh(xlsfile, gdenr, hhj):
         dic = df.to_dict()
         gddict = {}
         for key in dic:
-                gddict[key] = str(list(dic[key].values())[0])
+                gddict[key] = list(dic[key].values())[0]
         return gddict
         
 

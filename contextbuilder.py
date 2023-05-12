@@ -15,10 +15,11 @@ def hhsatzung(gde, hhj, xlsgrunddaten, xlsbewegung):
     ekvvj = hhdaten.hhsatzungekvvj(gdenr=gde, hhj=hhj, xlsfile=xlsgrunddaten)/100
     ekvj = ekvvj + dictbew["saldo_vj"]
     ekhhj = ekvj + dictbew["erg_saldo"]
+    ikred_verzinst = dictbew["ikred_aufnahme"] - dicthhgd["ikred_zinslos"]
     conhhsatzung["ek_vvj"] = ekvvj
     conhhsatzung["ek_vj"] = ekvj
     conhhsatzung["ek_hhj"] = ekhhj
-
+    conhhsatzung["ikred_verzinst"] = ikred_verzinst
     return conhhsatzung
 
 def hh_vorb_allg():
