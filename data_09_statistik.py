@@ -27,6 +27,7 @@ def get_jahreserg_entw_stat(df):
     pass
 
 def get_persA_produktverteilung_stat(df):
+    
     """
     Takes DF  from "Bewegungsdaten.xlsx" and sums per "produkt" field to show the source of human resource cost 
     """
