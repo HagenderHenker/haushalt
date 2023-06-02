@@ -84,11 +84,30 @@ def readewstatistik_wohn(xlsfile, gdenr, jahr):
     
     return dfewdata
 
+def readewstatistik_altersstruktur(xlsfile, gdenr, jahr):
+    df = pd.read_excel(xlsfile, sheet_name="ew_wohn")
+
+
+
+    return df
+
+def readflaechenstatistik(xlsfile, gdenr, jahr):
+    df = pd.read_excel(xlsfile, sheet_name="Flaeche")
+    df = df.loc[(df.gdenr == gdenr)&(df.Datum == df.Datum.max())]
+    df = df[(df.Grundeintrag)&(df.Nutzungsart != "Bodenfläche insgesamt")]
+
+    return df   
+
+
+
 #df = readewstatistik_wohn(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, jahr=2022)
 #print(df)
-df = (readgrunddatenhh(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, hhj=2023))
+#df = (readgrunddatenhh(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, hhj=2023))
+df = readflaechenstatistik(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, jahr=2023)
 print(df)
 print(df.dtypes)
+
+
 
 
 

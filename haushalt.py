@@ -2,18 +2,16 @@ import dataimport as di
 import contextbuilder as ctx
 import docbuilder
 import pathlib
+import enviromentvar as env
 
-gde = 60
-hhj = 2023
-grunddaten = str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx")
+gde = env.gde
+hhj = env.hhj
+grunddaten = env.grunddaten
+bewegungsdaten = env.bewDat
 
-bewegungsdaten = str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx")
-
-
-
-
-hhstpl = str(pathlib.Path.cwd() / "wordtemplates/hhs.docx")
-
+hhstpl = env.hhstpl
+quelleewdaten = env.quelleewdaten
+quelleflaechendaten = env.quelleflaechendaten
 
 if __name__ == "__main__":
 
@@ -27,21 +25,42 @@ if __name__ == "__main__":
     print("... Gemeindegrunddaten")
     dfhhs = di.readgrunddatenhh(xlsfile=grunddaten, gdenr=gde, hhj=hhj)
     print("... Haushaltssatzungsdaten")
+    dfewentw = di.readewstatistik_wohn(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
+    print("... Einwohnerstatistik")
+    dfewalter = di.readewstatistik_altersstruktur(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
+    print("... Einwohnerstatistik Altersstruktur")
+    dfewu20 = di.readewstatistik_altersstruktur_u20(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
+    print("... Einwohnerstatistik Altersstruktur unter 20jährige")
+    dfeweinschulung = di.readewstatistik_einschulung(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
+    print("... Einwohnerstatistik Einschulung")
+    dfflaeche = di.readflaechenstatistik(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
+    print("... Flächenstatistik")
 
     # build "Haushaltssatzung"
-
+    """
     contexthhsatzung = ctx.hhsatzung(gde = gde, hhj = hhj, xlsgrunddaten = grunddaten, xlsbewegung = bewegungsdaten)
-    print("Data for 'Haushaltssatzung' is compiled")
-    for k in contexthhsatzung:
-        print(f"{k} - {contexthhsatzung[k]} -type: {type(contexthhsatzung[k])}" )
+    print("Daten für 'Haushaltssatzung' sind zusammengestellt")
     
+    docbuilder.builddocx(template=hhstpl, context=contexthhsatzung, filename="00-Haushaltssatzung", gde=gde, hhj=hhj)
+    print("Haushaltssatzung erstellt in Ordner")
     """
-    #test
-    cont = {}
-    cont["gde_bez"] = contexthhsatzung["gde_bez"]
-    cont["hhj"] = contexthhsatzung["hhj"]
-    print(cont)
-    """
+    # build "Vorbericht" 1. Abschnitt: Allgemeines
+
+    vorb1tpl = docbuilder.create_tpl_instance(
+
+                                                )
+    print("... Templateinstanz Vorbericht 01 Allgemeines erzeugt")
+
+    contextvorb1 = ctx.hh_vorbericht_01_Allgemeines(
+                                                    dfhhs=dfhhs,dfgdegrunddaten = dfgde, 
+                                                    dfewentwicklung=dfewentw, 
+                                                    dfewaltersgliederung=dfewalter, 
+                                                    dfewalteru20= dfewu20, 
+                                                    dfflaeche=dfflaeche, 
+                                                    quelleewdaten=quelleewdaten, quelleflaeche=quelleflaechendaten,
+                                                    doc =  vorb1tpl
+                                                  )
+    print("Daten für Vorbericht 01 Allgemeines sind zusammengestellt")
 
     docbuilder.builddocx(template=hhstpl, context=contexthhsatzung, filename="00-Haushaltssatzung", gde=gde, hhj=hhj)
     print("Haushaltssatzung erstellt in Ordner")

@@ -1,11 +1,11 @@
 import pandas as pd
 import numpy as np
-import plotly.express as px
-import plotly.graph_objects as gp
 import dataimport as di
 import pathlib
 import datetime as dt
 import matplotlib.pyplot as plt
+import seaborn as sns   
+
 
 def gr_populationdevelopment(xlsfile, gde, hhj):
     data = di.readewstatistik_wohn(xlsfile=xlsfile, gdenr=gde, jahr=hhj-1)
@@ -28,6 +28,8 @@ def plot_gr_popdev(xlsfile, gde, hhj):
 def plot_gr_popdev(xlsfile, gde, hhj):
     data = gr_populationdevelopment(xlsfile=xlsfile, gde=gde, hhj=hhj)
     
+    print(data)
+    
     plt.plot(data['gesamt'], color='blue', marker='o')
     plt.title('Bevölkerungsentwicklung', fontsize=14)
     plt.xlabel('Jahr', fontsize=12)
@@ -37,9 +39,45 @@ def plot_gr_popdev(xlsfile, gde, hhj):
 
 
     for year in np.sort(data.index):
-        plt.annotate(str(data.loc[year]["gesamt"]), xy=(year, data.loc[year]["gesamt"]), xytext=(year, (data.loc[year]["gesamt"])-200))
+        plt.annotate(str(data.loc[year]["gesamt"]), xy=(year, data.loc[year]["gesamt"]), xytext=(year, (data.loc[year]["gesamt"])-120))
 
    
     plt.savefig(str(pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"))
+    plt.show()
 
-plot_gr_popdev(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gde=60, hhj=2023)
+
+
+def plot_flaechenentwicklung(df):
+     
+
+    #df = pd.read_excel("Fläche.xlsx")
+    df = df[(df.Grundeintrag)&(df.Nutzungsart != "Bodenfläche insgesamt")]
+    #print(df)
+
+    plt.rcParams.update({'axes.ymargin': 0.1})
+
+    colors4 = ["coral", "darkgrey", "forestgreen", "skyblue"]
+    colors9 = ["coral", "firebrick", "tomato", "lightsalmon", "darkgrey", "tan", "lawngreen", "forestgreen", "lightskyblue"]
+    labels = df.Nutzungsart
+
+    plot = sns.barplot(x = "Nutzungsart", y="km²", data=df[["Nutzungsart", "km²"]], palette = colors9)
+    #print(plot)
+    plt.xticks(rotation=30, ha="right")
+
+    for bar in plot.patches:
+        plot.annotate(format(bar.get_height(), '.2f'),
+                   (bar.get_x() + bar.get_width() / 2,
+                    bar.get_height()), ha='center', va='center',
+                   size=8, xytext=(0, 8),
+                   textcoords='offset points')
+
+    plt.title("Flächennutzung")
+
+    plt.savefig(str(pathlib.Path.cwd() / "hhdaten/plots/flaechennutzung.png"))
+
+
+
+
+if __name__ == "__main__":
+    #plot_gr_popdev(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gde=60, hhj=2023)
+    plot_flaechenentwicklung(di.readflaechenstatistik(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, jahr=2022))

@@ -1,6 +1,7 @@
 import data_01_allgemein as allgemein
 import data_02_hhsatzung as hhdaten
 import pathlib
+import docxtpl
 
 
 def hhsatzung(gde, hhj, xlsgrunddaten, xlsbewegung):
@@ -22,60 +23,47 @@ def hhsatzung(gde, hhj, xlsgrunddaten, xlsbewegung):
     conhhsatzung["ikred_verzinst"] = ikred_verzinst
     return conhhsatzung
 
-def hh_vorb_allg():
+def hh_vorbericht_01_Allgemeines(dfhhs, dfgdegrunddaten, dfewentwicklung, dfewaltersgliederung, dfewalteru20, dfflaeche, quelleewdaten, quelleflaeche, doc):
+    
+    """
+    gde_bez:			#Gemeindebezeichnung: zusammenfassung der Felder Gemeindetyp und 
+    hhj:				#Haushaltsjahr für das ein Vorbericht erstellt wird
+    gde_typ:			#Ortsgemeinde, Stadt, Verbandsgemeinde
+    bm_typ:				#Ortsbürgermeister, Stadtbürgermeister, Bürgermeister
+    hhj-1:				#Vorjahr der Haushaltsplanung
+    EW_akt:				#Aktuelle Einwohnerzahl
+    img_einwohnerentwicklung:	#Graph der Einwohnerentwicklung der letzten 10 Jahre
+    img_altersstruktur:		#Graph, Alterspyramide der Einwohner/Bürger
+    img_struktur_altersgruppebis20: #Graph der Einwohnerentwicklung bis 20 Jahre
+    quelleewdaten:			#Woher stammen die Einwohnerdaten
+    flaeche:			#Gesamtfläche der Gemeinde in km²
+    img_flaeche:			#Graph der Flächennutzung
+    quelleflaeche:			#Woher stammen die Flächendaten
+    """
+    hhj = dfhhs["hhj"]
 
-    conhh_vorb_allg = {}
+    ew_akt = dfewentwicklung.loc[(dfewentwicklung["gdenr"] == 60)&(dfewentwicklung["jahr"] == hhj-1)]
+
+    flaeche = dfflaeche
+
+    conhh_vorb_allg = {
+    "gde_bez" : dfgdegrunddaten["gde_bez"], 		#Gemeindebezeichnung: zusammenfassung der Felder Gemeindetyp und 
+    "hhj" : hhj,				                    #Haushaltsjahr für das ein Vorbericht erstellt wird
+    "gde_typ" : dfgdegrunddaten["gde_typ"],			#Ortsgemeinde, Stadt, Verbandsgemeinde
+    "bm_typ" : dfgdegrunddaten["bm_typ"],			#Ortsbürgermeister, Stadtbürgermeister, Bürgermeister
+    "hhj-1" : hhj-1,        				        #Vorjahr der Haushaltsplanung
+    "EW_akt" : ew_akt,         		                #Aktuelle Einwohnerzahl
+    "img_einwohnerentwicklung" : docxtpl.inline_image(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),               #Graph der Einwohnerentwicklung der letzten 10 Jahre
+    "img_altersstruktur" : docxtpl.inline_image(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),               #Graph, Alterspyramide der Einwohner/Bürger
+    "img_struktur_altersgruppebis20" : docxtpl.inline_image(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),             #Graph der Einwohnerentwicklung bis 20 Jahre
+    "quelleewdaten" : quelleewdaten,                 #Woher stammen die Einwohnerdaten
+    "flaeche" : flaeche,			                #Gesamtfläche der Gemeinde in km²
+    "img_flaeche" : docxtpl.inline_image(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),			                        #Graph der Flächennutzung
+    "quelleflaeche" : quelleflaeche                 #Woher stammen die Flächendaten
+
+    }
     return conhh_vorb_allg
 
-"""
-def freiefinanzspitze():
-    confreiefinanzspitze= {}
-    pass
-
-def schuldenübersicht():
-    conschuldenübersicht ={}
-    pass
-
-
-
-def hh_vorb_vvj():
-    conhh_vorb_vvj = {}
-    pass
-
-def hh_vorb_vj():
-    conhh_vorb_vj = {}
-    pass
-
-def vorbericht_uebersicht_erghh():
-    conhh_vorb_ueberg = {
-    
-    }
-    pass
-
-def vorbericht_aenderungenErtraege():
-    convorbericht_aenderungenErtraege = {
-
-    }
-    pass
-
-def Vorbericht_aenderungenAufwand():
-    conVorbericht_aenderungenAufwand = {
-
-    }
-    pass
-
-def vorbericht_ueb_FinHH():
-    conVorbericht_ueb_FinHH = {}
-    pass
-
-def vorbericht_Invest():
-    conVorbericht_Invest = {}
-    pass
-
-def kredit_und_bestand():
-    conKredit_und_bestand = {}
-    pass
-"""
 
 if __name__ == "__main__":
     #print test hhsatzungcontext
