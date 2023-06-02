@@ -2,6 +2,9 @@ import pandas as pd
 import dataimport as di
 import pathlib
 
+def get_hebesatzentwicklung(df):
+    pass
+
 def get_alterstat(df):
     pass
 
