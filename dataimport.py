@@ -84,9 +84,16 @@ def readewstatistik_wohn(xlsfile, gdenr, jahr):
     
     return dfewdata
 
+def readhebesatzstatistik(xlsfile, gdenr, hhj):
+    print(xlsfile)
+    df = pd.read_excel(xlsfile, sheet_name= "hebesatze")
+    dfhs = df.loc[(df["gdenr"] == gdenr) & (df["jahr"]<= hhj)]
+
+    return dfhs
+
 #df = readewstatistik_wohn(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, jahr=2022)
 #print(df)
-df = (readgrunddatenhh(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, hhj=2023))
+df = (readhebesatzstatistik(xlsfile=str(pathlib.Path.cwd() / "hh/hhdaten/grunddaten.xlsx"), gdenr=60, hhj=2023))
 print(df)
 print(df.dtypes)
 
