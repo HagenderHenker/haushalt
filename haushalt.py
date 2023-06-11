@@ -27,11 +27,11 @@ if __name__ == "__main__":
     print("... Haushaltssatzungsdaten")
     dfewentw = di.readewstatistik_wohn(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
     print("... Einwohnerstatistik")
-    dfewalter = di.readewstatistik_altersstruktur(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
+    dfewalter = di.readewdatenaltersstruktur(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
     print("... Einwohnerstatistik Altersstruktur")
-    dfewu20 = di.readewstatistik_altersstruktur_u20(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
+    dfewu20 = di.readewdaten_u20(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
     print("... Einwohnerstatistik Altersstruktur unter 20jährige")
-    dfeweinschulung = di.readewstatistik_einschulung(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
+    dfeweinschulung = di.readewdaten_u20(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
     print("... Einwohnerstatistik Einschulung")
     dfflaeche = di.readflaechenstatistik(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
     print("... Flächenstatistik")
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     docbuilder.builddocx(template=hhstpl, context=contexthhsatzung, filename="00-Haushaltssatzung", gde=gde, hhj=hhj)
     print("Haushaltssatzung erstellt in Ordner")
     """
-    # build "Vorbericht" 1. Abschnitt: Allgemeines
+    # build "02_Vorbericht" 1. Abschnitt: Allgemeines
 
     vorb1tpl = docbuilder.create_tpl_instance(
 
@@ -64,3 +64,25 @@ if __name__ == "__main__":
 
     docbuilder.builddocx(template=hhstpl, context=contexthhsatzung, filename="00-Haushaltssatzung", gde=gde, hhj=hhj)
     print("Haushaltssatzung erstellt in Ordner")
+
+    # build "03_Vorbericht" Information about closed year
+
+
+
+    # build "04_Vorbericht" Information about last year
+
+
+
+
+    # build "05_Vorbericht" Gesamtergebnisplan
+
+
+
+
+
+    # build "06_Vorbericht" Erträge im Ergebnishaushalt
+
+
+
+
+    #build "07_Vorbericht" Aufwendungen im Ergebnishaushalt
