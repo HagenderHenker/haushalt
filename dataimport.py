@@ -115,14 +115,15 @@ def readewdaten_u20(xlsfile, gdenr, hhj):
     df = df.loc[(df.gdenr == gdenr)&(df.datum <= np.datetime64(date(year=hhj-1, month=6, day=30)))&(df.datum >= np.datetime64(date(year=hhj-3, month=6, day=30)))]
     return df    
 
-#df = readewstatistik_wohn(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, jahr=2022)
-#print(df)
-#df = (readgrunddatenhh(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, hhj=2023))
-#df = readflaechenstatistik(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, jahr=2023)
-#df = readhebesatzentwicklung(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60)
-df = readewdatenaltersstruktur(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, hhj=2023)
-print(df)
-print(df.dtypes)
+if __name__ == "main": 
+    #df = readewstatistik_wohn(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, jahr=2022)
+    #print(df)
+    #df = (readgrunddatenhh(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, hhj=2023))
+    #df = readflaechenstatistik(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, jahr=2023)
+    #df = readhebesatzentwicklung(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60)
+    df = readewdatenaltersstruktur(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, hhj=2023)
+    print(df)
+    print(df.dtypes)
 
 
 

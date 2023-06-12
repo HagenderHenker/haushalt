@@ -35,6 +35,17 @@ if __name__ == "__main__":
     print("... Einwohnerstatistik Einschulung")
     dfflaeche = di.readflaechenstatistik(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
     print("... Flächenstatistik")
+    #dfekentwicklung = 
+
+    #dfergebnisentwicklung =
+
+    #dffinanzentwicklung = 
+
+    #dfschuldenentwicklung
+
+    #dfinvkredentwicklung
+
+    #dfliqkredentwicklung
 
     # build "Haushaltssatzung"
     """
@@ -42,7 +53,7 @@ if __name__ == "__main__":
     print("Daten für 'Haushaltssatzung' sind zusammengestellt")
     
     docbuilder.builddocx(template=hhstpl, context=contexthhsatzung, filename="00-Haushaltssatzung", gde=gde, hhj=hhj)
-    print("Haushaltssatzung erstellt in Ordner")
+    print(f"Haushaltssatzung erstellt in Ordner: 'Ausgabe/{gde}/{hhj}")
     """
     # build "02_Vorbericht" 1. Abschnitt: Allgemeines
 
@@ -62,8 +73,8 @@ if __name__ == "__main__":
                                                   )
     print("Daten für Vorbericht 01 Allgemeines sind zusammengestellt")
 
-    docbuilder.builddocx(template=hhstpl, context=contexthhsatzung, filename="00-Haushaltssatzung", gde=gde, hhj=hhj)
-    print("Haushaltssatzung erstellt in Ordner")
+    docbuilder.builddocx(template=hhstpl, context=contextvorb1, filename="01-Vorb_Allgemeines", gde=gde, hhj=hhj)
+    print(f"Vorbericht 01 - Allgemeines erzeugt in Ordner: 'Ausgabe/{gde}/{hhj}")
 
     # build "03_Vorbericht" Information about closed year
 
