@@ -13,8 +13,8 @@ und
 
 grunddaten.xlsx
 
-keine Veränderungen an der STruktur vorgenommen werden.
-Daten MÜSSEN in der vorgegebenen STruktur eingegeben werden!
+keine Veränderungen an der Struktur vorgenommen werden.
+Daten MÜSSEN in der vorgegebenen Struktur eingegeben werden!
 
 '''
 
