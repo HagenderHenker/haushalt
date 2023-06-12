@@ -1,7 +1,9 @@
 import data_01_allgemein as allgemein
 import data_02_hhsatzung as hhdaten
+import data_03_ergebnis as erg
 import pathlib
 import docxtpl
+import dataimport as di
 
 
 def hhsatzung(gde, hhj, xlsgrunddaten, xlsbewegung):
@@ -64,9 +66,14 @@ def hh_vorbericht_01_Allgemeines(dfhhs, dfgdegrunddaten, dfewentwicklung, dfewal
     }
     return conhh_vorb_allg
 
+def hh_vorbericht_05_UebersichtErgHH(df):
+    ergdict = erg.gesamtplan_erg(df)
+    return ergdict
 
 if __name__ == "__main__":
     #print test hhsatzungcontext
-    print(hhsatzung(gde=60 , hhj=2023, xlsgrunddaten=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"),xlsbewegung=str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx") ))
+    #print(hhsatzung(gde=60 , hhj=2023, xlsgrunddaten=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"),xlsbewegung=str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx") ))
 
     #print test vorbericht-allgemein
+    print(hh_vorbericht_05_UebersichtErgHH(di.hhdata_excelimport(xlsxfile= str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx"))))
+    print("test")

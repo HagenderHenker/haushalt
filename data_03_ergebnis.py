@@ -3,9 +3,8 @@ import pandas as pd
 import pathlib
 
 
-def gesamtplan_erg(xlsfile, hhj, gde):
-    df = di.hhdata_excelimport(xlsxfile=xlsfile)
-    
+def gesamtplan_erg(df):
+        
     # Summenermittlung für den Gesamtplan
     dic = {
     "e_p_steuern"	: df.loc[(df["sk"]<410000)]["anshhj"].sum(),
@@ -287,4 +286,5 @@ def get_ilfA(df, dferl):
    st = dfnew[["hhs","sk", "produkt", "bez", "anshhj", "ansvj", "rgergvvj", "erl"]].to_dict('records')
    return st
 
-print(gesamtplan_erg(xlsfile=str(pathlib.Path.cwd() / "haushalt/hhdaten/bewegungsdaten.xlsx"), hhj=2023, gde=60))
+if __name__ == "__main__":
+   print(gesamtplan_erg(xlsfile=str(pathlib.Path.cwd() / "haushalt/hhdaten/bewegungsdaten.xlsx"), hhj=2023, gde=60))
