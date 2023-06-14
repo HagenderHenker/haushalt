@@ -43,8 +43,8 @@ def hh_vorbericht_01_Allgemeines(dfhhs, dfgdegrunddaten, dfewentwicklung, dfewal
     quelleflaeche:			#Woher stammen die Flächendaten
     """
     hhj = dfhhs["hhj"]
-
-    ew_akt = dfewentwicklung.loc[(dfewentwicklung["gdenr"] == 60)&(dfewentwicklung["jahr"] == hhj-1)]
+    print(type(doc))
+    ew_akt = dfewentwicklung.loc[(dfewentwicklung["gdenr"] == 60)]
 
     flaeche = dfflaeche
 
@@ -55,12 +55,12 @@ def hh_vorbericht_01_Allgemeines(dfhhs, dfgdegrunddaten, dfewentwicklung, dfewal
     "bm_typ" : dfgdegrunddaten["bm_typ"],			#Ortsbürgermeister, Stadtbürgermeister, Bürgermeister
     "hhj-1" : hhj-1,        				        #Vorjahr der Haushaltsplanung
     "EW_akt" : ew_akt,         		                #Aktuelle Einwohnerzahl
-    "img_einwohnerentwicklung" : docxtpl.inline_image(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),               #Graph der Einwohnerentwicklung der letzten 10 Jahre
-    "img_altersstruktur" : docxtpl.inline_image(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),               #Graph, Alterspyramide der Einwohner/Bürger
-    "img_struktur_altersgruppebis20" : docxtpl.inline_image(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),             #Graph der Einwohnerentwicklung bis 20 Jahre
+    "img_einwohnerentwicklung" : docxtpl.InlineImage(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),               #Graph der Einwohnerentwicklung der letzten 10 Jahre
+    "img_altersstruktur" : docxtpl.InlineImage(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),               #Graph, Alterspyramide der Einwohner/Bürger
+    "img_struktur_altersgruppebis20" : docxtpl.InlineImage(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),             #Graph der Einwohnerentwicklung bis 20 Jahre
     "quelleewdaten" : quelleewdaten,                 #Woher stammen die Einwohnerdaten
     "flaeche" : flaeche,			                #Gesamtfläche der Gemeinde in km²
-    "img_flaeche" : docxtpl.inline_image(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),			                        #Graph der Flächennutzung
+    "img_flaeche" : docxtpl.InlineImage(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),			                        #Graph der Flächennutzung
     "quelleflaeche" : quelleflaeche                 #Woher stammen die Flächendaten
 
     }

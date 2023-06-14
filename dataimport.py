@@ -85,7 +85,7 @@ def readewstatistik_wohn(xlsfile, gdenr, jahr):
     return dfewdata
 
 
-def readflaechenstatistik(xlsfile, gdenr, jahr):
+def readflaechenstatistik(xlsfile, gdenr, hhj):
     df = pd.read_excel(xlsfile, sheet_name="Flaeche")
     df = df.loc[(df.gdenr == gdenr)&(df.Datum == df.Datum.max())]
     df = df[(df.Grundeintrag)&(df.Nutzungsart != "Bodenfläche insgesamt")]

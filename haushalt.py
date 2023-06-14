@@ -10,6 +10,7 @@ grunddaten = env.grunddaten
 bewegungsdaten = env.bewDat
 
 hhstpl = env.hhstpl
+vorb01tpl = env.vorb01tpl
 quelleewdaten = env.quelleewdaten
 quelleflaechendaten = env.quelleflaechendaten
 
@@ -27,14 +28,15 @@ if __name__ == "__main__":
     print("... Haushaltssatzungsdaten")
     dfewentw = di.readewstatistik_wohn(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
     print("... Einwohnerstatistik")
-    dfewalter = di.readewdatenaltersstruktur(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
+    dfewalter = di.readewdatenaltersstruktur(xlsfile=grunddaten, gdenr=gde, hhj=hhj-1)
     print("... Einwohnerstatistik Altersstruktur")
-    dfewu20 = di.readewdaten_u20(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
+    dfewu20 = di.readewdaten_u20(xlsfile=grunddaten, gdenr=gde, hhj=hhj-1)
     print("... Einwohnerstatistik Altersstruktur unter 20jährige")
-    dfeweinschulung = di.readewdaten_u20(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
+    dfeweinschulung = di.readewdaten_u20(xlsfile=grunddaten, gdenr=gde, hhj=hhj-1)
     print("... Einwohnerstatistik Einschulung")
-    dfflaeche = di.readflaechenstatistik(xlsfile=grunddaten, gdenr=gde, jahr=hhj-1)
+    dfflaeche = di.readflaechenstatistik(xlsfile=grunddaten, gdenr=gde, hhj=hhj-1)
     print("... Flächenstatistik")
+
     #dfekentwicklung = 
 
     #dfergebnisentwicklung =
@@ -57,9 +59,7 @@ if __name__ == "__main__":
     """
     # build "02_Vorbericht" 1. Abschnitt: Allgemeines
 
-    vorb1tpl = docbuilder.create_tpl_instance(
-
-                                                )
+    vorb01tpl_instanz = docbuilder.create_tpl_instance(vorb01tpl)
     print("... Templateinstanz Vorbericht 01 Allgemeines erzeugt")
 
     contextvorb1 = ctx.hh_vorbericht_01_Allgemeines(
@@ -69,11 +69,11 @@ if __name__ == "__main__":
                                                     dfewalteru20= dfewu20, 
                                                     dfflaeche=dfflaeche, 
                                                     quelleewdaten=quelleewdaten, quelleflaeche=quelleflaechendaten,
-                                                    doc =  vorb1tpl
+                                                    doc =  vorb01tpl_instanz
                                                   )
     print("Daten für Vorbericht 01 Allgemeines sind zusammengestellt")
 
-    docbuilder.builddocx(template=hhstpl, context=contextvorb1, filename="01-Vorb_Allgemeines", gde=gde, hhj=hhj)
+    docbuilder.builddocx(tpl=vorb01tpl_instanz, context=contextvorb1, filename="01-Vorb_Allgemeines", gde=gde, hhj=hhj)
     print(f"Vorbericht 01 - Allgemeines erzeugt in Ordner: 'Ausgabe/{gde}/{hhj}")
 
     # build "03_Vorbericht" Information about closed year
