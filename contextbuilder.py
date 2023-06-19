@@ -1,6 +1,8 @@
 import data_01_allgemein as allgemein
 import data_02_hhsatzung as hhdaten
 import data_03_ergebnis as erg
+import numpy as np 
+import pandas as pd
 import pathlib
 import docxtpl
 import dataimport as di
@@ -27,6 +29,8 @@ def hhsatzung(gde, hhj, xlsgrunddaten, xlsbewegung):
 
 def hh_vorbericht_01_Allgemeines(dfhhs, dfgdegrunddaten, dfewentwicklung, dfewaltersgliederung, dfewalteru20, dfflaeche, quelleewdaten, quelleflaeche, doc):
     
+    dfgdegrunddaten.head()
+
     """
     gde_bez:			#Gemeindebezeichnung: zusammenfassung der Felder Gemeindetyp und 
     hhj:				#Haushaltsjahr für das ein Vorbericht erstellt wird
@@ -42,26 +46,33 @@ def hh_vorbericht_01_Allgemeines(dfhhs, dfgdegrunddaten, dfewentwicklung, dfewal
     img_flaeche:			#Graph der Flächennutzung
     quelleflaeche:			#Woher stammen die Flächendaten
     """
-    hhj = dfhhs["hhj"]
-    print(type(doc))
-    ew_akt = dfewentwicklung.loc[(dfewentwicklung["gdenr"] == 60)]
+    #print(dfhhs)
 
-    flaeche = dfflaeche
-
+    hhj = dfhhs["hhj"].values[0]
+    #print(type(doc))
+    #print(hhj)
+    dfewakt = dfewentwicklung.loc[(dfewentwicklung["gdenr"] == 60) & (dfewentwicklung["datum"] == np.datetime64(f'{hhj-1}-06-30')) & (dfewentwicklung["wohnstatus"] == "Einwohner mit Hauptwohnung") ]
+    ew_akt = dfewakt["maennl"].values[0] +dfewakt["weibl"].values[0]
+    #print(ew_akt)
+    #print(type(ew_akt))
+    flaeche = dfflaeche["km²"].sum()
+    bild1 = str(pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png")
+    print(bild1)
     conhh_vorb_allg = {
-    "gde_bez" : dfgdegrunddaten["gde_bez"], 		#Gemeindebezeichnung: zusammenfassung der Felder Gemeindetyp und 
+    "gde_bez" : dfgdegrunddaten.gde_bez.values[0], 	#Gemeindebezeichnung: zusammenfassung der Felder Gemeindetyp und 
     "hhj" : hhj,				                    #Haushaltsjahr für das ein Vorbericht erstellt wird
-    "gde_typ" : dfgdegrunddaten["gde_typ"],			#Ortsgemeinde, Stadt, Verbandsgemeinde
-    "bm_typ" : dfgdegrunddaten["bm_typ"],			#Ortsbürgermeister, Stadtbürgermeister, Bürgermeister
+    "gde_typ" : dfgdegrunddaten["gde_typ"].values[0],       #Ortsgemeinde, Stadt, Verbandsgemeinde
+    "bm_typ" : dfgdegrunddaten["bm_typ"].values[0],			#Ortsbürgermeister, Stadtbürgermeister, Bürgermeister
+
     "hhj-1" : hhj-1,        				        #Vorjahr der Haushaltsplanung
     "EW_akt" : ew_akt,         		                #Aktuelle Einwohnerzahl
-    "img_einwohnerentwicklung" : docxtpl.InlineImage(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),               #Graph der Einwohnerentwicklung der letzten 10 Jahre
-    "img_altersstruktur" : docxtpl.InlineImage(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),               #Graph, Alterspyramide der Einwohner/Bürger
-    "img_struktur_altersgruppebis20" : docxtpl.InlineImage(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),             #Graph der Einwohnerentwicklung bis 20 Jahre
-    "quelleewdaten" : quelleewdaten,                 #Woher stammen die Einwohnerdaten
+    "img_einwohnerentwicklung" : docxtpl.InlineImage(doc, bild1),               #Graph der Einwohnerentwicklung der letzten 10 Jahre
+ #   "img_altersstruktur" : docxtpl.InlineImage(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),               #Graph, Alterspyramide der Einwohner/Bürger
+ #   "img_struktur_altersgruppebis20" : docxtpl.InlineImage(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),             #Graph der Einwohnerentwicklung bis 20 Jahre
+ #   "quelleewdaten" : quelleewdaten,                 #Woher stammen die Einwohnerdaten
     "flaeche" : flaeche,			                #Gesamtfläche der Gemeinde in km²
-    "img_flaeche" : docxtpl.InlineImage(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),			                        #Graph der Flächennutzung
-    "quelleflaeche" : quelleflaeche                 #Woher stammen die Flächendaten
+   # "img_flaeche" : docxtpl.InlineImage(doc, pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"),			                        #Graph der Flächennutzung
+    #"quelleflaeche" : quelleflaeche                 #Woher stammen die Flächendaten
 
     }
     return conhh_vorb_allg
@@ -75,5 +86,8 @@ if __name__ == "__main__":
     #print(hhsatzung(gde=60 , hhj=2023, xlsgrunddaten=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"),xlsbewegung=str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx") ))
 
     #print test vorbericht-allgemein
-    print(hh_vorbericht_05_UebersichtErgHH(di.hhdata_excelimport(xlsxfile= str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx"))))
-    print("test")
+    print(hh_vorbericht_01_Allgemeines(di.hhdata_excelimport(xlsxfile= str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx"))))
+    
+    
+    #print(hh_vorbericht_05_UebersichtErgHH(di.hhdata_excelimport(xlsxfile= str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx"))))
+    #print("test")

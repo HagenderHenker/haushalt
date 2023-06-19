@@ -60,7 +60,7 @@ if __name__ == "__main__":
     # build "02_Vorbericht" 1. Abschnitt: Allgemeines
 
     vorb01tpl_instanz = docbuilder.create_tpl_instance(vorb01tpl)
-    print("... Templateinstanz Vorbericht 01 Allgemeines erzeugt")
+    print("*** Templateinstanz Vorbericht 01 Allgemeines erzeugt")
 
     contextvorb1 = ctx.hh_vorbericht_01_Allgemeines(
                                                     dfhhs=dfhhs,dfgdegrunddaten = dfgde, 

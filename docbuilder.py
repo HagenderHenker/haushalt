@@ -46,7 +46,7 @@ def builddocx(tpl, context, filename, gde, hhj):
     gdepfad = pathlib.Path.cwd() /f"Ausgabe/{gde}"
     hhpfad = pathlib.Path.cwd() /f"Ausgabe/{gde}/{hhj}"
     print(hhpfad)
-
+    print(context)
 
     
     tpl.render(context, env)
