@@ -77,6 +77,8 @@ def hh_vorbericht_01_Allgemeines(dfhhs, dfgdegrunddaten, dfewentwicklung, dfewal
     }
     return conhh_vorb_allg
 
+
+
 def hh_vorbericht_05_UebersichtErgHH(df):
     ergdict = erg.gesamtplan_erg(df)
     return ergdict

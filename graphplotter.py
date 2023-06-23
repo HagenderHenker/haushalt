@@ -45,11 +45,14 @@ def plot_gr_popdev(xlsfile, gde, hhj):
     plt.savefig(str(pathlib.Path.cwd() / "hhdaten/plots/bev-entw.png"))
     plt.show()
 
+def plot_gr_altersgruppen(df):
+    plt.figure(figsize=(8,5))
+    df = df[(df.Grundeintrag)&(df.Nutzungsart != "Bodenfläche insgesamt")]
+
 
 
 def plot_flaechenentwicklung(df):
-     
-
+    plt.figure(figsize=(8,5)) 
     #df = pd.read_excel("Fläche.xlsx")
     df = df[(df.Grundeintrag)&(df.Nutzungsart != "Bodenfläche insgesamt")]
     #print(df)
@@ -59,7 +62,7 @@ def plot_flaechenentwicklung(df):
     colors4 = ["coral", "darkgrey", "forestgreen", "skyblue"]
     colors9 = ["coral", "firebrick", "tomato", "lightsalmon", "darkgrey", "tan", "lawngreen", "forestgreen", "lightskyblue"]
     labels = df.Nutzungsart
-
+    
     plot = sns.barplot(x = "Nutzungsart", y="km²", data=df[["Nutzungsart", "km²"]], palette = colors9)
     #print(plot)
     plt.xticks(rotation=30, ha="right")
@@ -72,12 +75,12 @@ def plot_flaechenentwicklung(df):
                    textcoords='offset points')
 
     plt.title("Flächennutzung")
+    plt.tight_layout()
+ 
 
     plt.savefig(str(pathlib.Path.cwd() / "hhdaten/plots/flaechennutzung.png"))
 
 
-
-
 if __name__ == "__main__":
     #plot_gr_popdev(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gde=60, hhj=2023)
-    plot_flaechenentwicklung(di.readflaechenstatistik(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, jahr=2022))
+    plot_flaechenentwicklung(di.readflaechenstatistik(xlsfile=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"), gdenr=60, hhj=2023))
