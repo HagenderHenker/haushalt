@@ -11,6 +11,7 @@ bewegungsdaten = env.bewDat
 
 hhstpl = env.hhstpl
 vorb01tpl = env.vorb01tpl
+vorb02tpl = env.vorb02tpl
 quelleewdaten = env.quelleewdaten
 quelleflaechendaten = env.quelleflaechendaten
 
@@ -78,7 +79,11 @@ if __name__ == "__main__":
 
     # build "03_Vorbericht" Information about closed year
 
-
+    vorb02tpl_instanz = docbuilder.create_tpl_instance(vorb02tpl)
+    contextvorb2_vvj = ctx.hh_vorbericht_02_verlaufvvj(df=dfbew)
+    print("Daten für Vorbericht 02 Bericht 2. Haushaltsvorjahr sind zusammengestellt ")
+    docbuilder.builddocx(tpl=vorb02tpl_instanz, context=contextvorb2_vvj, filename="02-Vorb_VVJ", gde=gde, hhj=hhj)
+    print(f"Vorbericht 02 - 2. Haushaltsvorjahr: 'Ausgabe/{gde}/{hhj}")
 
     # build "04_Vorbericht" Information about last year
 

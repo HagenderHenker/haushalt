@@ -6,6 +6,7 @@ import pandas as pd
 import pathlib
 import docxtpl
 import dataimport as di
+import enviromentvar as env
 
 
 def hhsatzung(gde, hhj, xlsgrunddaten, xlsbewegung):
@@ -77,6 +78,22 @@ def hh_vorbericht_01_Allgemeines(dfhhs, dfgdegrunddaten, dfewentwicklung, dfewal
     }
     return conhh_vorb_allg
 
+def hh_vorbericht_02_verlaufvvj(df):
+    ergdict = erg.gesamtplan_vvj(df)
+
+    ja_erledigt_teilsatz = env.ja_erledigt_teilsatz
+    erlaeuterung_ergebnis_vvj = env.erlaeuterung_ergebnis_vvj                           #Erläuterungstext zum Ergebnishaushalt
+    erlaeuterung_finanz_vvj = env.erlaeuterung_finanz_vvj
+    vvj = env.hhj -2	                                #Haushaltsjahr -2
+    ergueb = env.ergueb
+
+    ergdict["ja_erledigt_teilsatz"] = ja_erledigt_teilsatz
+    ergdict["erlaeuterung_ergebnis_vvj"] = erlaeuterung_ergebnis_vvj
+    ergdict["erlaeuterung_finanz_vvj"] = erlaeuterung_finanz_vvj
+    ergdict["vvj"] = vvj
+    ergdict["hhj"] = env.hhj
+    ergdict["ergueb"] = ergueb
+    return ergdict
 
 
 def hh_vorbericht_05_UebersichtErgHH(df):
