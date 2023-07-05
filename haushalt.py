@@ -12,6 +12,8 @@ bewegungsdaten = env.bewDat
 hhstpl = env.hhstpl
 vorb01tpl = env.vorb01tpl
 vorb02tpl = env.vorb02tpl
+vorb05tpl = env.vorb05tpl
+vorb06tpl = env.vorb06tpl
 quelleewdaten = env.quelleewdaten
 quelleflaechendaten = env.quelleflaechendaten
 
@@ -60,43 +62,44 @@ if __name__ == "__main__":
     """
     # build "02_Vorbericht" 1. Abschnitt: Allgemeines
 
-    vorb01tpl_instanz = docbuilder.create_tpl_instance(vorb01tpl)
-    print("*** Templateinstanz Vorbericht 01 Allgemeines erzeugt")
+    #vorb01tpl_instanz = docbuilder.create_tpl_instance(vorb01tpl)
+    #print("*** Templateinstanz Vorbericht 01 Allgemeines erzeugt")
 
-    contextvorb1 = ctx.hh_vorbericht_01_Allgemeines(
-                                                    dfhhs=dfhhs,dfgdegrunddaten = dfgde, 
-                                                    dfewentwicklung=dfewentw, 
-                                                    dfewaltersgliederung=dfewalter, 
-                                                    dfewalteru20= dfewu20, 
-                                                    dfflaeche=dfflaeche, 
-                                                    quelleewdaten=quelleewdaten, quelleflaeche=quelleflaechendaten,
-                                                    doc =  vorb01tpl_instanz
-                                                  )
-    print("Daten für Vorbericht 01 Allgemeines sind zusammengestellt")
+    #contextvorb1 = ctx.hh_vorbericht_01_Allgemeines(
+    #                                                dfhhs=dfhhs,dfgdegrunddaten = dfgde, 
+    #                                                dfewentwicklung=dfewentw, 
+    #                                                dfewaltersgliederung=dfewalter, 
+    #                                                dfewalteru20= dfewu20, 
+    #                                                dfflaeche=dfflaeche, 
+    #                                                quelleewdaten=quelleewdaten, quelleflaeche=quelleflaechendaten,
+    #                                                doc =  vorb01tpl_instanz
+    #                                              )
+    #print("Daten für Vorbericht 01 Allgemeines sind zusammengestellt")
 
-    docbuilder.builddocx(tpl=vorb01tpl_instanz, context=contextvorb1, filename="01-Vorb_Allgemeines", gde=gde, hhj=hhj)
-    print(f"Vorbericht 01 - Allgemeines erzeugt in Ordner: 'Ausgabe/{gde}/{hhj}")
+    #docbuilder.builddocx(tpl=vorb01tpl_instanz, context=contextvorb1, filename="01-Vorb_Allgemeines", gde=gde, hhj=hhj)
+    #print(f"Vorbericht 01 - Allgemeines erzeugt in Ordner: 'Ausgabe/{gde}/{hhj}")
 
     # build "03_Vorbericht" Information about closed year
 
-    vorb02tpl_instanz = docbuilder.create_tpl_instance(vorb02tpl)
-    contextvorb2_vvj = ctx.hh_vorbericht_02_verlaufvvj(df=dfbew)
-    print("Daten für Vorbericht 02 Bericht 2. Haushaltsvorjahr sind zusammengestellt ")
-    docbuilder.builddocx(tpl=vorb02tpl_instanz, context=contextvorb2_vvj, filename="02-Vorb_VVJ", gde=gde, hhj=hhj)
-    print(f"Vorbericht 02 - 2. Haushaltsvorjahr: 'Ausgabe/{gde}/{hhj}")
+    #vorb02tpl_instanz = docbuilder.create_tpl_instance(vorb02tpl)
+    #contextvorb2_vvj = ctx.hh_vorbericht_02_verlaufvvj(df=dfbew)
+    #print("Daten für Vorbericht 02 Bericht 2. Haushaltsvorjahr sind zusammengestellt ")
+    #docbuilder.builddocx(tpl=vorb02tpl_instanz, context=contextvorb2_vvj, filename="02-Vorb_VVJ", gde=gde, hhj=hhj)
+    #print(f"Vorbericht 02 - 2. Haushaltsvorjahr: 'Ausgabe/{gde}/{hhj}")
 
     # build "04_Vorbericht" Information about last year
 
-
-
-
     # build "05_Vorbericht" Gesamtergebnisplan
 
+    # build "06_Vorbericht_aenderungenErtraege"
+    
+    vorb05tpl_instanz = docbuilder.create_tpl_instance(vorb05tpl)
+    contextvorb05 = ctx.hh_vorbericht_06_Ertraege(df=dfbew, dferl=dferl)
+    print("Daten für Vorbericht 06 'Veränderungen in den Erträgen' sind zusammengestellt ")
+    docbuilder.builddocx(tpl=vorb05tpl_instanz, context=contextvorb05, filename="06-Vorb_Ertraege", gde=gde, hhj=hhj)
+    print(f"Vorbericht 06 - Veränderung in den Erträgen: 'Ausgabe/{gde}/{hhj}")
+    
 
-
-
-
-    # build "06_Vorbericht" Erträge im Ergebnishaushalt
 
 
 

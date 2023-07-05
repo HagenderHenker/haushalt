@@ -34,6 +34,12 @@ grunddaten = str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx")
 hhstpl = str(pathlib.Path.cwd() / "wordtemplates/hhs.docx")
 vorb01tpl = str(pathlib.Path.cwd() / "wordtemplates/02_Vorbericht_Allgemeines.docx")
 vorb02tpl = str(pathlib.Path.cwd() / "wordtemplates/03_VorberichtVVJ.docx")
+vorb03tpl = str(pathlib.Path.cwd() / "wordtemplates/04_VorberichtVJ.docx")
+vorb04tpl = str(pathlib.Path.cwd() / "wordtemplates/05_Vorbericht_uebersicht_erghh.docx")
+vorb05tpl = str(pathlib.Path.cwd() / "wordtemplates/06_Vorbericht_aenderungenErtraege.docx")
+vorb06tpl = str(pathlib.Path.cwd() / "wordtemplates/07_Vorbericht_aenderungenAufwand")
+vorb07tpl = str(pathlib.Path.cwd() / "wordtemplates/08_Vorbericht_ueb_FinHH.docx")
+vorb08tpl = str(pathlib.Path.cwd() / "wordtemplates/09_Vorbericht_Invest.docx")
 
 # Quelle für die Flächenstatistik
 quelleflaechendaten = "Statistisches Landesamt RLP, 2021"

@@ -100,13 +100,32 @@ def hh_vorbericht_05_UebersichtErgHH(df):
     ergdict = erg.gesamtplan_erg(df)
     return ergdict
 
+def hh_vorbericht_06_Ertraege(df, dferl):
+
+    steuertbl = erg.get_steuern(df=df, dferl=dferl)
+    hhj = env.hhj
+    gde = env.gde
+
+    ertrdict = {"steuertbl" : steuertbl,
+                "hhj" : hhj,
+                "hhj-1" : hhj-1
+
+    }
+
+
+    return ertrdict
+
+
+
 if __name__ == "__main__":
     #print test hhsatzungcontext
     #print(hhsatzung(gde=60 , hhj=2023, xlsgrunddaten=str(pathlib.Path.cwd() / "hhdaten/grunddaten.xlsx"),xlsbewegung=str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx") ))
 
     #print test vorbericht-allgemein
-    print(hh_vorbericht_01_Allgemeines(di.hhdata_excelimport(xlsxfile= str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx"))))
+    #print(hh_vorbericht_01_Allgemeines(di.hhdata_excelimport(xlsxfile= str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx"))))
     
     
     #print(hh_vorbericht_05_UebersichtErgHH(di.hhdata_excelimport(xlsxfile= str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx"))))
     #print("test")
+
+    print(hh_vorbericht_06_Ertraege(df=di.hhdata_excelimport(xlsxfile= str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx")), dferl = di.erl_excelimport(str(pathlib.Path.cwd() / "hhdaten/bewegungsdaten.xlsx"))))
